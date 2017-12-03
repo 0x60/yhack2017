@@ -1,4 +1,6 @@
 # Preliminary model to calculate the relevancy of a certain technology
+import json
+import sys
 
 technologies = [
 	{
@@ -85,14 +87,26 @@ def processGuardian(fileObject):
 
 
 def modelCommercialRelevancyScore(startup, nyTimes, nasdaq, guardian):
-	print processStartupFile(startup)
-	print processNASDAQFile(nasdaq)
-	print processNYTimes(nyTimes)
-	print processGuardian(guardian)
+	return
+	# print processStartupFile(startup)
+	# print processNASDAQFile(nasdaq)
+	# print processNYTimes(nyTimes)
+	# print processGuardian(guardian)
 
 
 
+def dumpJSON(startup, nyTimes, nasdaq, guardian):
+	with open("results/aiStartupAcquisitions.json", "w") as fp:
+		json.dump(processStartupFile(startup), fp)
 
+	with open("results/nytimesResults.json", "w") as fp:
+		json.dump(processNYTimes(nyTimes), fp)
+
+	with open("results/companyNASDAQData.json", "w") as fp:
+		json.dump(processNASDAQFile(nasdaq), fp)
+
+	with open("results/theguardianResults.json", "w") as fp:
+		json.dump(processGuardian(guardian), fp)
 
 
 if __name__ == '__main__':
@@ -101,3 +115,4 @@ if __name__ == '__main__':
 	companyNASDAQData = open("results/companyNASDAQData.txt", 'r')
 	guardianResults = open("results/theguardianResults.txt", 'r')
 	modelCommercialRelevancyScore(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
+	dumpJSON(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
