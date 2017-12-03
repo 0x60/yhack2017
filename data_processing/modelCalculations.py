@@ -1,6 +1,9 @@
 # Preliminary model to calculate the relevancy of a certain technology
 import json
 import sys
+import numpy as np
+from scipy import stats
+
 
 technologies = [
 	{
@@ -63,7 +66,7 @@ def processNYTimes(fileObject):
 			continue
 		lineSplit = line.rstrip().split("\t")
 
-		print lineSplit
+
 		keyword = lineSplit[0]
 		sentimentArray = processFloatVector(lineSplit[1][1:-1].split(","))
 		count = [int(x) for x in lineSplit[2][1:-1].split(",")]
@@ -87,11 +90,59 @@ def processGuardian(fileObject):
 
 
 def modelCommercialRelevancyScore(startup, nyTimes, nasdaq, guardian):
-	return
-	# print processStartupFile(startup)
-	# print processNASDAQFile(nasdaq)
-	# print processNYTimes(nyTimes)
-	# print processGuardian(guardian)
+	startupMap = processStartupFile(startup)
+	nyTimesMap = processNYTimes(nyTimes)
+	nasdaqMap = processNASDAQFile(nasdaq)
+	guardianMap = processGuardian(guardian)
+
+	totalSentiment = 0
+
+	technologyRelevancies = []
+
+	for element in technologies:
+		keywords = element["keywords"]
+		for word in keywords:
+			totalYears = len(nyTimesMap[word]["sentiment"])
+			sumCount = sum(nyTimesMap[word]["count"])
+			totalKeywordSentiment = 0
+			for i in range(totalYears):
+				if nyTimesMap[word]["sentiment"][i] == None:
+					continue
+				else:
+					totalKeywordSentiment += nyTimesMap[word]["count"][i] * nyTimesMap[word]["sentiment"][i]
+			totalKeywordSentiment /= float(sumCount)
+
+			slope, intercept, r, p, e = stats.linregress(range(totalYears), nyTimesMap[word]["count"])
+			slopeG, interceptG, rG, pG, eG = stats.linregress(range(len(guardianMap[word])), guardianMap[word])
+
+			totalSentiment += slope * slopeG * totalKeywordSentiment
+
+	
+		acquisitionValue = 0
+		averageDifferenceStock = []
+		for company in element["companies"]:
+			acquisitionValue += len(rankingCompaniesByAcquisitions) - rankingCompaniesByAcquisitions.index(company) * startupMap[company]
+			
+			if company not in nasdaqMap:
+				continue
+			stockValues = nasdaqMap[company]
+			differenceValue = sum([b - a for a, b in zip(stockValues[::2], stockValues[1::2])]) / len(stockValues)
+			averageDifferenceStock.append(differenceValue)
+
+		averageDifferenceStockValue = np.mean(averageDifferenceStock)
+		acquisitionValue /= float(len(element["companies"]))
+
+
+
+		topTierNeuralNetworkOutput = 0.1 * totalSentiment + 3.0 * acquisitionValue + 0.5 * averageDifferenceStockValue
+
+		technologyRelevancies.append((element["technology_name"], topTierNeuralNetworkOutput))
+
+			
+
+
+	print technologyRelevancies
+
 
 
 
@@ -115,4 +166,4 @@ if __name__ == '__main__':
 	companyNASDAQData = open("results/companyNASDAQData.txt", 'r')
 	guardianResults = open("results/theguardianResults.txt", 'r')
 	modelCommercialRelevancyScore(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
-	dumpJSON(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
+	# dumpJSON(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
