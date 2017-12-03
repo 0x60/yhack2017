@@ -56,33 +56,31 @@ def getNYTimesJSON(query):
 
 		respdict = json.loads(response.text)
 
-		if pageNumber == 0:
-			countArticle = 0
+		countArticle = respdict["response"]["meta"]["hits"]
+		sentimentTotalScore = 0
 
-		if respdict["response"]["meta"]["hits"] > respdict["response"]["meta"]["offset"] + 10:
+		while respdict["response"]["meta"]["hits"] > respdict["response"]["meta"]["offset"]:
+			endPoint.replace("&page=" + str(pageNumber), "&page=" + str(pageNumber + 1))
 			pageNumber += 1
 
+			for article in respdict["response"]["docs"]:
+				text = article["snippet"]
 
+				document = types.Document(
+			    	content=text,
+			    	type=enums.Document.Type.PLAIN_TEXT)
 
-		sentimentTotalScore = 0
-		for article in respdict["response"]["docs"]:
-			countArticle += 1
-			text = article["snippet"]
+				# Detects the sentiment of the text
+				sentiment = client.analyze_sentiment(document=document).document_sentiment
 
-			document = types.Document(
-		    	content=text,
-		    	type=enums.Document.Type.PLAIN_TEXT)
-
-			# Detects the sentiment of the text
-			sentiment = client.analyze_sentiment(document=document).document_sentiment
-
-			sentimentTotalScore += sentiment.score
+				sentimentTotalScore += sentiment.score
 		
 		if countArticle != 0:
 			averageSentimentScore = float(sentimentTotalScore) / countArticle
 			sentimentScoreEvolution.append(averageSentimentScore)
 		else:
 			sentimentScoreEvolution.append(None)
+
 		articleCount.append(countArticle)
 
 	return sentimentScoreEvolution, articleCount
