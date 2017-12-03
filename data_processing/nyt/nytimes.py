@@ -14,7 +14,6 @@ monthDay = "0101"
 
 apiKey = "6da0b227c38d4f6091ae5b16261a62bd"
 
-
 def getNYTimesJSON(query):
 
 	client = language.LanguageServiceClient()
@@ -22,11 +21,9 @@ def getNYTimesJSON(query):
 	sentimentScoreEvolution = []
 	articleCount = []
 
-	
-
 	for index in range(startingYear, endingYear, 1):
 		pageNumber = 0
-		
+
 		endPoint = nyTimesAPIEndpoint + "?fq=body:(\"" + query + "\")"
 
 		print index
@@ -50,8 +47,6 @@ def getNYTimesJSON(query):
 
 		response = requests.get(endPoint)
 
-
-
 		while(response.status_code != 200):
 			response = requests.get(endPoint)
 
@@ -69,7 +64,6 @@ def getNYTimesJSON(query):
 			endPoint = endPoint.replace(oldString, newString)
 
 			print endPoint
-
 
 			for article in respdict["response"]["docs"]:
 				text = article["snippet"]
