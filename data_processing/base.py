@@ -21,21 +21,15 @@ def merge(techs, arr):
 technologies = [
 	{
 		"technology_id": 0,
-		"technology_name": "VR",
-		"keywords": ["vr", "virtual reality", "vive", "oculus"],
-		"companies": ["FB", "HTC"]
+		"technology_name": "Deep Learning",
+		"keywords": ["deep learning", "computer vision", "autonomous vehicles"],
+		"companies": ["NVDA", "MSFT", "GOOG"]
 	},
 	{
 		"technology_id": 1,
-		"technology_name": "4K",
-		"keywords": ["4k", "tv", "UHD"],
-		"companies": ["LG", "VZIO"]
-	},
-	{
-		"technology_id": 2,
-		"technology_name": "HPC",
-		"keywords": ["hpc", "cloud", "aws", "azure", "google", "gpgpu", "gpu"],
-		"companies": ["INTC", "NVDA", "AMZN", "MSFT", "GOOG"]
+		"technology_name": "Smart Assistants",
+		"keywords": ["siri", "google home", "alexa"],
+		"companies": ["GOOG", "AAPL", "AMZN"]
 	}
 ]
 
