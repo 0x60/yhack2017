@@ -56,13 +56,14 @@ def getNYTimesJSON(query):
 
 		respdict = json.loads(response.text)
 
+		if pageNumber == 0:
+			countArticle = 0
 
 		if respdict["response"]["meta"]["hits"] > respdict["response"]["meta"]["offset"] + 10:
 			pageNumber += 1
 
 
 
-		countArticle = 0
 		sentimentTotalScore = 0
 		for article in respdict["response"]["docs"]:
 			countArticle += 1
