@@ -74,6 +74,15 @@ def getNYTimesJSON(query):
 				sentiment = client.analyze_sentiment(document=document).document_sentiment
 
 				sentimentTotalScore += sentiment.score
+
+			response = requests.get(endPoint)
+
+			while(response.status_code != 200):
+				response = requests.get(endPoint)
+
+
+			respdict = json.loads(response.text)
+
 		
 		if countArticle != 0:
 			averageSentimentScore = float(sentimentTotalScore) / countArticle
