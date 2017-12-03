@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Insight</title>
+	<link href="https://fonts.googleapis.com/css?family=Lato|Oswald" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
@@ -76,161 +77,36 @@
 	</div>
 	<div id="dashboard" class="dashboard">
 		<div class="container">
-			<h2>Dashboard</h2>
+			<h2>Dashboard <button id="sort-btn">SORT</button></h2>
 			<p>Technologies and companies appear on the left and their relevance scores appear on the right of each block. Our picks are listed below with descriptions.</p>
 			<div class="row">
 				<div class="col-1-5">
 					<h3>Experimental</h3>
-					<div class="tech t1" style="height:80px">
-						<p>Deep Learning <span class="score">80</span></p>
-					</div>
-					<div class="tech t2" style="height:80px">
-						<p>Nvidia <span class="score">80</span></p>
-					</div>
-					<div class="tech t3" style="height:60px">
-						<p>Computer Vision <span class="score">60</span></p>
-					</div>
-					<div class="tech t4" style="height:50px">
-						<p>Siri <span class="score">50</span></p>
-					</div>
-					<div class="tech t5" style="height:45px">
-						<p>Alexa <span class="score">45</span></p>
-					</div>
-					<div class="tech t6" style="height:30px">
-						<p>Google Home <span class="score">30</span></p>
-					</div>
-					<div class="tech t7" style="height:20px">
-						<p>Autonomous Vehicles <span class="score">20</span></p>
-					</div>
+					<div id="db-1"></div>
 				</div>
 				<div class="col-1-5">
 					<h3>&nbsp;</h3>
-					<div class="tech t1" style="height:80px">
-						<p>Deep Learning <span class="score">80</span></p>
-					</div>
-					<div class="tech t2" style="height:80px">
-						<p>Nvidia <span class="score">80</span></p>
-					</div>
-					<div class="tech t3" style="height:60px">
-						<p>Computer Vision <span class="score">60</span></p>
-					</div>
-					<div class="tech t4" style="height:50px">
-						<p>Siri <span class="score">50</span></p>
-					</div>
-					<div class="tech t5" style="height:45px">
-						<p>Alexa <span class="score">45</span></p>
-					</div>
-					<div class="tech t6" style="height:30px">
-						<p>Google Home <span class="score">30</span></p>
-					</div>
-					<div class="tech t7" style="height:20px">
-						<p>Autonomous Vehicles <span class="score">20</span></p>
-					</div>
+					<div id="db-2"></div>
 				</div>
 				<div class="col-1-5">
 					<h3>Emerging</h3>
-					<div class="tech t1" style="height:80px">
-						<p>Deep Learning <span class="score">80</span></p>
-					</div>
-					<div class="tech t2" style="height:80px">
-						<p>Nvidia <span class="score">80</span></p>
-					</div>
-					<div class="tech t3" style="height:60px">
-						<p>Computer Vision <span class="score">60</span></p>
-					</div>
-					<div class="tech t4" style="height:50px">
-						<p>Siri <span class="score">50</span></p>
-					</div>
-					<div class="tech t5" style="height:45px">
-						<p>Alexa <span class="score">45</span></p>
-					</div>
-					<div class="tech t6" style="height:30px">
-						<p>Google Home <span class="score">30</span></p>
-					</div>
-					<div class="tech t7 disabled" style="height:20px">
-						<p>Autonomous Vehicles <span class="score">20</span></p>
-					</div>
+					<div id="db-3"></div>
 				</div>
 				<div class="col-1-5">
 					<h3>&nbsp;</h3>
-					<div class="tech t1 disabled" style="height:80px">
-						<p>Deep Learning <span class="score">80</span></p>
-					</div>
-					<div class="tech t2" style="height:80px">
-						<p>Nvidia <span class="score">80</span></p>
-					</div>
-					<div class="tech t3 disabled" style="height:60px">
-						<p>Computer Vision <span class="score">60</span></p>
-					</div>
-					<div class="tech t4 disabled" style="height:50px">
-						<p>Siri <span class="score">50</span></p>
-					</div>
-					<div class="tech t5" style="height:45px">
-						<p>Alexa <span class="score">45</span></p>
-					</div>
-					<div class="tech t6" style="height:30px">
-						<p>Google Home <span class="score">30</span></p>
-					</div>
-					<div class="tech t7 disabled" style="height:20px">
-						<p>Autonomous Vehicles <span class="score">20</span></p>
-					</div>
+					<div id="db-4"></div>
 				</div>
 				<div class="col-1-5">
 					<h3>Mature</h3>
-					<div class="tech t1 disabled" style="height:80px">
-						<p>Deep Learning <span class="score">80</span></p>
-					</div>
-					<div class="tech t2" style="height:80px">
-						<p>Nvidia <span class="score">80</span></p>
-					</div>
-					<div class="tech t3 disabled" style="height:60px">
-						<p>Computer Vision <span class="score">60</span></p>
-					</div>
-					<div class="tech t4 disabled" style="height:50px">
-						<p>Siri <span class="score">50</span></p>
-					</div>
-					<div class="tech t5 disabled" style="height:45px">
-						<p>Alexa <span class="score">45</span></p>
-					</div>
-					<div class="tech t6 disabled" style="height:30px">
-						<p>Google Home <span class="score">30</span></p>
-					</div>
-					<div class="tech t7 disabled" style="height:20px">
-						<p>Autonomous Vehicles <span class="score">20</span></p>
-					</div>
+					<div id="db-5"></div>
 				</div>
 			</div>
 
 			<h2>Our Picks</h2>
 			<div class="row">
-				<div class="col-4 picks">
-					<div class="tech t1" style="height:20px">
-						<p>Deep Learning <span class="score">80</span></p>
-					</div>
-					<div class="tech t2" style="height:20px">
-						<p>Nvidia <span class="score">80</span></p>
-					</div>
-					<div class="tech t4" style="height:20px">
-						<p>Siri <span class="score">50</span></p>
-					</div>
+				<div class="col-4 picks" id="db-6">
 				</div>
-				<div class="col-8">
-					<h3>Nvidia (80)</h3>
-					<p>Nvidia's impressive growth, broad market reach, and age make it our top established pick. It should be a safe bet with reasonable return.</p>
-					<p>Criteria</p>
-					<p>Graph</p>
-					<p>Graph</p>
-					<h3>Nvidia (80)</h3>
-					<p>Nvidia's impressive growth, broad market reach, and age make it our top established pick. It should be a safe bet with reasonable return.</p>
-					<p>Criteria</p>
-					<p>Graph</p>
-					<p>Graph</p>
-					<h3>Nvidia (80)</h3>
-					<p>Nvidia's impressive growth, broad market reach, and age make it our top established pick. It should be a safe bet with reasonable return.</p>
-					<p>Criteria</p>
-					<p>Graph</p>
-					<p>Graph</p>
-				</div>
+				<div class="col-8" id="db-7"></div>
 			</div>
 		</div>
 	</div>

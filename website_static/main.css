@@ -20,7 +20,7 @@ body {
 }
 
 h1, h2, h3 {
-	font-family: TradeGothicLTCom-BdCn20Obl;
+	font-family: TradeGothicLTCom-BdCn20Obl, Oswald, sans-serif;
 	text-transform: uppercase;
 }
 
@@ -179,7 +179,7 @@ p.muted {
 			margin: 0;
 			padding: 0;
 
-			font-family: TradeGothicLTCom-Cn18;
+			font-family: TradeGothicLTCom-Cn18, Oswald, sans-serif;
 			font-size: 20px;
 		}
 
@@ -226,10 +226,11 @@ p.muted {
 
 		.dashboard .tech.disabled { opacity: 0.2; }
 
+		.dashboard .tech { background-image: linear-gradient(-180deg, #51E1BF 0%, #50ECB5 100%); }
+
 		.dashboard .tech.t1 { background-image: linear-gradient(-180deg, #53A1FD 0%, #52ABF2 100%); }
 		.dashboard .tech.t2 { background-image: linear-gradient(-180deg, #52ABF3 0%, #52B6E8 100%); }
 		.dashboard .tech.t3 { background-image: linear-gradient(-180deg, #52B6E8 0%, #52C1DE 100%); }
 		.dashboard .tech.t4 { background-image: linear-gradient(-180deg, #52C1DF 0%, #51CBD4 100%); }
 		.dashboard .tech.t5 { background-image: linear-gradient(-180deg, #51CBD4 0%, #51D6CA 100%); }
 		.dashboard .tech.t6 { background-image: linear-gradient(-180deg, #51D6CA 0%, #51E0C0 100%); }
-		.dashboard .tech.t7 { background-image: linear-gradient(-180deg, #51E1BF 0%, #50ECB5 100%); }
