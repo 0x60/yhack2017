@@ -1,0 +1,235 @@
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+	background: #28282D;
+	color: #FFF;
+}
+
+/* typography */
+body {
+	font-family: Lato, Helvetica, "Helvetica Neue", Arial, sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+h1, h2, h3 {
+	font-family: TradeGothicLTCom-BdCn20Obl;
+	text-transform: uppercase;
+}
+
+h2 {
+	opacity: 0.7;
+	font-size: 36px;
+}
+
+h3 { font-size: 24px; }
+
+a {
+	color: #53A0FD;
+	transition: linear 0.1s color;
+	text-decoration: none;
+}
+
+a:hover { color: #51ECB5; }
+a:active { color: #18d994; }
+
+p.muted {
+	opacity: 0.5;
+	font-style: italic;
+	font-size: 14px;
+}
+
+/* grid */
+.container {
+	width: 100%;
+	margin: 0 auto;
+	max-width: 960px;
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+}
+
+	.container .row [class*='col-'] {
+		padding-right: 20px;
+	}
+
+	.container .row .col-12 { width: 100%; }
+	.container .row .col-8 { width: 66.6666%; }
+	.container .row .col-6 { width: 50%; }
+	.container .row .col-4 { width: 33.3333%; }
+	.container .row .col-1-5 { width: 20%; }
+
+/* general */
+.header {
+	height: 75px;
+}
+
+	.header .site-title {
+		padding: 25px 0;
+		margin: 0;
+
+		font-size: 18px;
+		line-height: 25px;
+	}
+
+	.header .navigation {
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.header ul.nav {
+		padding: 0;
+		margin: 0;
+
+		list-style: none;
+	}
+
+		.header ul.nav li {
+			display: inline-block;
+		}
+
+			.header ul.nav li a {
+				display: inline-block;
+				padding: 30px 25px;
+
+				color: rgba(255,255,255,0.5);
+				font-size: 14px;
+				line-height: 15px;
+				text-transform: uppercase;
+				letter-spacing: 0.78px;
+			}
+
+				.header ul.nav li:last-child a {
+					padding-right: 0;
+				}
+
+				.header ul.nav li a:hover,
+				.header ul.nav li.active a {
+					color: rgba(255,255,255,1);
+					font-weight: 700;
+				}
+
+.jumbotron {
+	min-height: 425px;
+	background-image: url("images/background.png");
+	background-repeat: no-repeat;
+	background-position: center right;
+	background-size: 780px 500px;
+}
+
+	.jumbotron .main {
+		padding-top: 100px;
+	}
+
+		.jumbotron .main p.sub-title {
+			margin: 0 0 0 30px;
+			padding: 0;
+
+			font-weight: 100;
+			text-transform: uppercase;
+			font-size: 16px;
+			color: #FFFFFF;
+			letter-spacing: 0;
+		}
+
+		.jumbotron .main h1 {
+			margin: 0;
+			padding: 0;
+
+			line-height: 120px;
+			font-size: 108px;
+			letter-spacing: 0;
+
+			background-image: -webkit-linear-gradient(-180deg, #53A0FD 0%, #51ECB5 100%);
+			background-image:    -moz-linear-gradient(-180deg, #53A0FD 0%, #51ECB5 100%);
+			background-image:     -ms-linear-gradient(-180deg, #53A0FD 0%, #51ECB5 100%);
+			background-image:      -o-linear-gradient(-180deg, #53A0FD 0%, #51ECB5 100%);
+			background-image:         linear-gradient(-180deg, #53A0FD 0%, #51ECB5 100%);
+			color:transparent;
+			-webkit-background-clip: text;
+			background-clip: text;
+		}
+
+	.jumbotron .meta {
+		margin-top: 40px;
+		text-transform: uppercase;
+	}
+
+		.jumbotron .meta .tiny {
+			margin: 0;
+			padding: 0;
+
+			font-weight: 700;
+			opacity: 0.5;
+			font-size: 8px;
+			letter-spacing: 2.4px;
+		}
+
+		.jumbotron .meta .names {
+			margin: 0;
+			padding: 0;
+
+			font-family: TradeGothicLTCom-Cn18;
+			font-size: 20px;
+		}
+
+/* model */
+.model {
+	padding: 40px 0;
+}
+
+.icon.chevron {
+	height: 40px;
+	margin: 20px 0;
+}
+
+.footer {
+	padding: 20px 0;
+	background: rgba(0,0,0,0.2);
+}
+
+/* dashboard */
+.dashboard {}
+
+	.dashboard .tech {
+		border-radius: 2px;
+		padding: 6px 8px;
+		margin: 0 2px 2px 0;
+
+		background-image: none;
+		color: #000;
+
+		box-sizing: content-box;
+	}
+
+		.dashboard .tech p {
+			margin: 0;
+
+			font-weight: 700;
+			font-size: 12px;
+		}
+
+			.dashboard .tech p span {
+				font-weight: 400;
+				float: right;
+			}
+
+		.dashboard .tech.disabled { opacity: 0.2; }
+
+		.dashboard .tech.t1 { background-image: linear-gradient(-180deg, #53A1FD 0%, #52ABF2 100%); }
+		.dashboard .tech.t2 { background-image: linear-gradient(-180deg, #52ABF3 0%, #52B6E8 100%); }
+		.dashboard .tech.t3 { background-image: linear-gradient(-180deg, #52B6E8 0%, #52C1DE 100%); }
+		.dashboard .tech.t4 { background-image: linear-gradient(-180deg, #52C1DF 0%, #51CBD4 100%); }
+		.dashboard .tech.t5 { background-image: linear-gradient(-180deg, #51CBD4 0%, #51D6CA 100%); }
+		.dashboard .tech.t6 { background-image: linear-gradient(-180deg, #51D6CA 0%, #51E0C0 100%); }
+		.dashboard .tech.t7 { background-image: linear-gradient(-180deg, #51E1BF 0%, #50ECB5 100%); }
