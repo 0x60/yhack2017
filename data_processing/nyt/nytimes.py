@@ -22,9 +22,11 @@ def getNYTimesJSON(query):
 	sentimentScoreEvolution = []
 	articleCount = []
 
-	pageNumber = 0
+	
 
 	for index in range(startingYear, endingYear, 1):
+		pageNumber = 0
+		
 		endPoint = nyTimesAPIEndpoint + "?fq=body:(\"" + query + "\")"
 
 		print index
@@ -60,8 +62,14 @@ def getNYTimesJSON(query):
 		sentimentTotalScore = 0
 
 		while respdict["response"]["meta"]["hits"] > respdict["response"]["meta"]["offset"]:
-			endPoint.replace("&page=" + str(pageNumber), "&page=" + str(pageNumber + 1))
+			oldString = "&page=" + str(pageNumber)
 			pageNumber += 1
+			newString = "&page=" + str(pageNumber)
+
+			endPoint = endPoint.replace(oldString, newString)
+
+			print endPoint
+
 
 			for article in respdict["response"]["docs"]:
 				text = article["snippet"]
@@ -77,9 +85,10 @@ def getNYTimesJSON(query):
 
 			response = requests.get(endPoint)
 
+			print response.status_code
+
 			while(response.status_code != 200):
 				response = requests.get(endPoint)
-
 
 			respdict = json.loads(response.text)
 
