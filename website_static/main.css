@@ -63,6 +63,7 @@ p.muted {
 	}
 
 	.container .row .col-12 { width: 100%; }
+	.container .row .col-6 { width: 50%; }
 	.container .row .col-4 { width: 33.3333%; }
 
 /* general */
