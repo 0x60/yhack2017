@@ -1,5 +1,6 @@
 # Preliminary model to calculate the relevancy of a certain technology
 import json
+
 import sys
 import numpy as np
 from scipy import stats
@@ -17,6 +18,12 @@ technologies = [
 		"technology_name": "Smart Assistants",
 		"keywords": ["siri", "google home", "alexa"],
 		"companies": ["GOOG", "AAPL", "AMZN"]
+	},
+	{
+		"technology_id": 2,
+		"technology_name": "Blockchain",
+		"keywords": ["blockchain", "cryptocurrency"],
+		"companies": ["GOOG", "GS"]
 	}
 ]
 
@@ -24,6 +31,9 @@ technologies = [
 rankingCompaniesByAcquisitions = ["GOOG", "AAPL", "MSFT", 
 									"INTC", "FB", "TWTR", 
 									"CRM", "AMZN", "BIDU", "UBER"]
+
+rankingCompaniesByInvestments = ["SBI", "GOOG", "OSTK", "CITI", "GS"]
+
 
 
 def processFloatVector(array):
@@ -89,40 +99,56 @@ def processGuardian(fileObject):
 	return myMap
 
 
-def modelCommercialRelevancyScore(startup, nyTimes, nasdaq, guardian):
+def modelCommercialRelevancyScore(startup, nyTimes, nasdaq, guardian, twitterData, blockchainInvestments):
 	startupMap = processStartupFile(startup)
 	nyTimesMap = processNYTimes(nyTimes)
 	nasdaqMap = processNASDAQFile(nasdaq)
 	guardianMap = processGuardian(guardian)
+	blockchainMap = processStartupFile(blockchainInvestments)
 
 	totalSentiment = 0
 
 	technologyRelevancies = []
+	
 
 	for element in technologies:
+		technologyKeywordRelevancies = []
 		keywords = element["keywords"]
 		for word in keywords:
 			totalYears = len(nyTimesMap[word]["sentiment"])
+			totalTwitterYears = len(twitterData[word]["sentiment"])
 			sumCount = sum(nyTimesMap[word]["count"])
+			sumTwitter = sum(twitterData[word]["count"])
 			totalKeywordSentiment = 0
 			for i in range(totalYears):
 				if nyTimesMap[word]["sentiment"][i] == None:
 					continue
 				else:
-					totalKeywordSentiment += nyTimesMap[word]["count"][i] * nyTimesMap[word]["sentiment"][i]
-			totalKeywordSentiment /= float(sumCount)
+					totalKeywordSentiment += nyTimesMap[word]["count"][i] * nyTimesMap[word]["sentiment"][i] 
+			for i in range(totalTwitterYears):
+				totalKeywordSentiment += twitterData[word]["count"][i] * twitterData[word]["sentiment"][i] 
+
+			totalKeywordSentiment /= float(sumCount + sumTwitter)
 
 			slope, intercept, r, p, e = stats.linregress(range(totalYears), nyTimesMap[word]["count"])
 			slopeG, interceptG, rG, pG, eG = stats.linregress(range(len(guardianMap[word])), guardianMap[word])
 
+			technologyKeywordRelevancies.append(slope * slopeG * totalKeywordSentiment)
+
 			totalSentiment += slope * slopeG * totalKeywordSentiment
+
+
 
 	
 		acquisitionValue = 0
 		averageDifferenceStock = []
 		for company in element["companies"]:
-			acquisitionValue += len(rankingCompaniesByAcquisitions) - rankingCompaniesByAcquisitions.index(company) * startupMap[company]
-			
+			if element["technology_id"] == 0 or element["technology_id"] == 1:
+				acquisitionValue += (len(rankingCompaniesByAcquisitions) - rankingCompaniesByAcquisitions.index(company)) * startupMap[company]
+			else:
+				acquisitionValue += (len(rankingCompaniesByInvestments) - rankingCompaniesByInvestments.index(company)) * blockchainMap[company]
+
+
 			if company not in nasdaqMap:
 				continue
 			stockValues = nasdaqMap[company]
@@ -134,12 +160,16 @@ def modelCommercialRelevancyScore(startup, nyTimes, nasdaq, guardian):
 
 
 
-		topTierNeuralNetworkOutput = 0.1 * totalSentiment + 3.0 * acquisitionValue + 0.5 * averageDifferenceStockValue
+		topTierNeuralNetworkOutput = 0.1 * totalSentiment + 3.0 * acquisitionValue + 0.6 * averageDifferenceStockValue
+		print totalSentiment, acquisitionValue, averageDifferenceStockValue
+
+		# print technologyKeywordRelevancies
+
 
 		technologyRelevancies.append((element["technology_name"], topTierNeuralNetworkOutput))
 
 			
-
+	
 
 	print technologyRelevancies
 
@@ -165,5 +195,9 @@ if __name__ == '__main__':
 	nytimesResults = open("results/nytimesResults.txt", 'r')
 	companyNASDAQData = open("results/companyNASDAQData.txt", 'r')
 	guardianResults = open("results/theguardianResults.txt", 'r')
-	modelCommercialRelevancyScore(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
+	blockchainInvestments = open("results/blockchainStartupInvestment.txt", 'r')
+	with open("results/twitter.json") as f:
+		twitterData = json.load(f)
+
+	modelCommercialRelevancyScore(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults, twitterData, blockchainInvestments)
 	# dumpJSON(startupAcquistions, nytimesResults, companyNASDAQData, guardianResults)
