@@ -18,20 +18,7 @@ def merge(techs, arr):
 
 	return output2
 
-technologies = [
-	{
-		"technology_id": 0,
-		"technology_name": "Deep Learning",
-		"keywords": ["deep learning", "computer vision", "autonomous vehicles"],
-		"companies": ["NVDA", "MSFT", "GOOG"]
-	},
-	{
-		"technology_id": 1,
-		"technology_name": "Smart Assistants",
-		"keywords": ["siri", "google home", "alexa"],
-		"companies": ["GOOG", "AAPL", "AMZN"]
-	}
-]
+
 
 out1 = nyt.model(technologies)
 out2 = test.model(technologies)
